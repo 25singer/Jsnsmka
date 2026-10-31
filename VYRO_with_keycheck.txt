@@ -6,7 +6,8 @@ do
 local VYRO_API = 'http://2.192.28.31:8119/verify'
 local HttpService = game:GetService('HttpService')
 local env = (getgenv and getgenv()) or _G
-local key = env.script_key or (rawget(env, 'script_key'))
+local key = env.script_key or rawget(_G, 'script_key') or (shared and shared.script_key) or script_key
+if type(key) == 'string' then key = key:gsub('^%s+', ''):gsub('%s+$', '') end
 local function fail(msg) warn('[VYRO] ' .. msg) end
 local sendRequest = (syn and syn.request) or http_request or request
 local ok = false
